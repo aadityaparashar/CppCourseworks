@@ -85,3 +85,85 @@ void Date::SetYear(int y)
 		throw ("Wrong year");
 	Year = y;
 }
+
+void Date::SetDay(int d)
+{
+	if (d < 1 || d > 31)
+		throw ("Wrong day");
+	if ((iMonth == 4 || iMonth == 6 || iMonth == 9 || iMonth == 11) && d == 31)
+		throw ("Wrong day");
+	if (iMonth == 2)
+	{
+		if (IsLeap(Year))
+		{
+			if (d > 29)
+				throw ("Wrong day");
+		}
+		else
+		{
+			if (d > 28)
+				throw ("Wrong day");
+		}
+	}
+	Day = d;
+}
+
+void Date::SetDate(int d, int m, int y)
+{
+	SetYear(y);
+	SetMonth(m);
+	SetDay(d);
+}
+
+bool Date::operator==(const Date& other) const
+{
+	if (Day == other.Day && iMonth == other.iMonth && Year == other.Year)
+		return true;
+	else
+		return false;
+}
+
+bool Date::operator<(const Date& other) const
+{
+	if (Year != other.Year)
+		return Year < other.Year;
+	if (iMonth != other.iMonth)
+		return iMonth < other.iMonth;
+	return Day < other.Day;
+}
+
+
+Date& Date::operator=(const Date& Right)
+{
+	//cout << "operator= called\n";
+	if (this == &Right) // & - address operator
+		return *this; // necessary for expressions like d1 = *pd where pd points to d1
+	Day = Right.Day;
+	Year = Right.Year;
+	iMonth = Right.iMonth;
+	strcpy_s(Month, Right.Month);
+	return *this;
+}
+
+Date Date::CreateRandomDate(Date begin, Date end)
+{   // returns a date between begin and end
+	// https://stackoverflow.com/questions/7560114/random-number-c-in-some-range
+	tm tm_begin, tm_end;
+	memset(&tm_begin, 0, sizeof tm_begin);
+	memset(&tm_end, 0, sizeof tm_end);
+	tm_begin.tm_mday = begin.GetDay();
+	tm_end.tm_mday = end.GetDay();
+	tm_begin.tm_mon = begin.GetMonth() - 1;
+	tm_end.tm_mon = end.GetMonth() - 1;
+	tm_begin.tm_year = begin.GetYear() - 1900;
+	tm_end.tm_year = end.GetYear() - 1900;
+	time_t lower = mktime(&tm_begin);
+	time_t upper = mktime(&tm_end);
+	random_device rd; // obtain a random number from hardware
+	mt19937 eng(rd()); // seed the generator
+	uniform_int_distribution<> distr((unsigned int)lower, (unsigned int)upper);
+	time_t time_t_rand = distr(eng);
+	tm tm_rand;
+	localtime_s(&tm_rand, &time_t_rand);
+	return Date(tm_rand.tm_mday, tm_rand.tm_mon + 1, tm_rand.tm_year + 1900);
+}
