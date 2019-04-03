@@ -2,10 +2,74 @@
 //
 
 #include <iostream>
+#include"Data.h"
+#include <algorithm>
+
+void testCreateAndPrint() {
+	Data dat = Data(100);
+	dat.printAll();
+	cout << endl;
+	int count = dat.countAll();
+	cout << count << endl;
+}
+
+void testGetGroup() {
+	Data dat = Data(1000);
+
+	list<Item>* it = dat.getGroup('A');
+
+	cout << it->size() << endl;
+
+	list<Item>* itSub = dat.getSubGroup('Q', 98);
+
+	if (itSub != nullptr) {
+		std::for_each(itSub->begin(), itSub->end(), [](Item& s) {std::cout << s.getName() << " has parameters: Date - " << s.getDate().ToString() << " Group - " << s.getGroup() << " Subgroup " << s.getSubGroup() << "\n";
+			});
+		cout << itSub->size() << endl;
+	}
+
+
+}
+
+void printSubgroup() {
+	Data dat = Data(1000);
+	dat.printSubGroupByNames('Q', 98);
+	cout << endl;
+	cout << endl;
+	dat.printSubGroupByDates('Q', 98);
+}
+
+void testPrintandGetItem() {
+	Data dat = Data(1000);
+	Date dt = Date(24, 2, 1999);
+	Item* testItemSearchDate = dat.GetItem('Q', 98, dt);
+	std::cout << testItemSearchDate->getName() << " has parameters: Date - " << testItemSearchDate->getDate().ToString() << " Group - " << testItemSearchDate->getGroup() << " Subgroup " << testItemSearchDate->getSubGroup() << "\n";
+	dat.PrintItem('Q', 98, "Teena");
+	dat.PrintItem('Q', 98, dt);
+	cout << endl;
+}
+
+void testRemoves() {
+
+	Data dat = Data(100);
+	dat.printAll();
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	dat.RemoveGroup('A');
+	dat.pringGroup('A');
+	dat.RemoveSubgroup('C', 16);
+	Date dt = Date(11, 10, 2005);
+	dat.RemoveItem('B', 44, dt);
+	dat.printAll();
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	testRemoves();
+
+	return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

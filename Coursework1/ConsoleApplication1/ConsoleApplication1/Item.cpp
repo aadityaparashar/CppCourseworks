@@ -43,8 +43,7 @@ std::string Item::getName() {
 	return this->Name;
 }
 
-void Item::setGroup(char group)
-{
+void Item::setGroup(char group){
 	this->Group = group;
 }
 
@@ -56,13 +55,20 @@ Date Item::getDate() {
 
 
 const bool Item::operator==(const Item& two) {
-	Item test = two;
-	if (this->Group == test.getGroup())return true;
+	Item temp = two;
+	
+	if (this->Group == temp.getGroup()) {
+		return true;
+	}
 	return false;
 }
 
 const bool Item::operator<(const Item& two) {
-	Item test = two;
-	if (this->SubGroup < test.getSubGroup())return true;
+	Item temp = two;
+	
+	if (this->SubGroup < temp.getSubGroup()) {
+		return true;
+	}
+
 	return false;
 }
