@@ -35,7 +35,7 @@ void kb(std::exception_ptr ex_ptr) {
 	try {
 		char data[] = "ready";
 		char input[10];
-		std::cout << "What do you want to do? \n Connect or Disconnect" << std::endl;
+		std::cout << "What do you want to do?\nConnect or Disconnect" << std::endl;
 		while (true) {
 			while (!consoleLock.try_lock()) {
 				continue;
