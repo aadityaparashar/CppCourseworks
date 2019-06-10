@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>RandomNumber.qml</file>
+        <file>RandomNumberForm.ui.qml</file>
+    </qresource>
+</RCC>
