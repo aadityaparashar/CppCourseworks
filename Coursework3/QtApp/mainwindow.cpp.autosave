@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(m_pLocalSocket, SIGNAL(disconnected()), this, SLOT(onDisconnectedFromServer()));
     QObject::connect(m_pLocalSocket, SIGNAL(readyRead()), this, SLOT(incoming_data()));
 
-    QObject::connect(ui->server_connect, SIGNAL(clicked()), this, SLOT(onConnectButtonClicked()));
+    QObject::connect(ui->server_connect, SIGNAL(clicked()), this, SLOT(connect_server_clicked()));
     QObject::connect(ui->server_disconnect, SIGNAL(clicked()), this, SLOT(server_disconnect_clicked()));
     QObject::connect(ui->send_data, SIGNAL(clicked()), this, SLOT(send_data_clicked()) );
     QObject::connect(ui->special_functions, SIGNAL(currentTextChanged(const QString &)), this, SLOT(special_function_changed(const QString &)));
@@ -122,7 +122,7 @@ void MainWindow::error_hapened(QLocalSocket::LocalSocketError socketError)
     log(strLog);
 }
 
-void MainWindow::onConnectButtonClicked()
+void MainWindow::connect_server_clicked()
 {
     QLineEdit *ptxtServerAddress = ui->server_address;
     QString strServerAddress = ptxtServerAddress->text();

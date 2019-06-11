@@ -28,7 +28,7 @@ public slots:
     void                    error_hapened(QLocalSocket::LocalSocketError);
     void                    incoming_data();
 
-    void                    onConnectButtonClicked();
+    void                    connect_server_clicked();
     void                    server_disconnect_clicked();
     void                    send_data_clicked();
 
